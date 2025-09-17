@@ -1,0 +1,161 @@
+﻿@inject TechStore.Repositories.ICategoryRepository categoriesRepo
+@inject IViewLocalizer Localizer
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - TechStore</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/TechStore.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+</head>
+
+<body>
+    <header>
+        <form id="searchForm" asp-controller="Products" asp-action="SearchProducts" method="post">
+            <input type="hidden" id="searchQuery" name="searchQuery" />
+        </form>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light box-shadow">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-page="/Index"><img src="~/images/logo.png" /></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation" style="color: #42ed39">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between" id="navbarCollapse">
+                    <ul class="navbar-nav w-100">
+                        <li class="nav-item w-100">
+                            <div class="input-group navSearch" style="width: 100%">
+                                <input id="searchString" type="text" class="form-control" placeholder="@Localizer["SearchPlaceholder"]" />
+                                <span class="input-group-addon"><a id="searchBtn" href="#"><i class="fa fa-search" style="font-size:24px; margin-top: 8px; margin-left: 5px; color: white"></i></a></span>
+                            </div>
+                        </li>
+                    </ul>
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>
+
+
+
+
+        <nav class="navbar2 navbar-expand-md">
+            <div class="container">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar2Collapse" style="color: #42ed39; margin-top: 6px">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-center" id="navbar2Collapse">
+                    <ul class="navbar-nav">
+                        @{
+                            var categories = categoriesRepo.ReadCategories();
+                        }
+                        @foreach (var category in categories)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light text-center" asp-area="" asp-page="/Products" asp-route-categoryId="@category.Id">
+                                    @Localizer[category.Name]
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer id="footer" style="margin-top: 50px;">
+        <div class="footer-top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 footer-content">
+                        <h3>@Localizer["contact"]</h3>
+                        <p>
+                            TechStore <br>
+                            Prószkowska 76 <br>
+                            45-758 Opole <br>
+                        </p>
+                        <strong><i class="fa fa-phone"></i> @Localizer["phone"]<strong>123 456 789</strong></strong><br>
+                        <strong><i class="fa fa-envelope"></i> Email: <strong>techstore@email.pl</strong></strong><br />
+                    </div>
+                    <div class="col-lg-3 col-md-6 footer-links">
+                        <h3>@Localizer["pomoc"]</h3>
+                        <ul>
+                            <li><a asp-page="/Kontakt">FAQ</a></li>
+                            <li><a href="#">@Localizer["sell"]</a></li>
+                            <li><a href="#">@Localizer["map"]</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 footer-links">
+                        <h3>@Localizer["Moje konto"]</h3>
+                        <ul>
+                            <li><a href="#">@Localizer["login"]</a></li>
+                            <li><a href="#">@Localizer["order"]</a></li>
+                            <li><a href="#">@Localizer["account"]</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 footer-links">
+                        <h3>@Localizer["Dostawa"]</h3>
+                        <p>@Localizer["Darmowa wysyłka dla zamówień powyżej 200zł!"]</p>
+                        <ul>
+                            <li><a href="cennik.html">@Localizer["Cennik dostaw"]</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <hr>
+
+        <div class="container py-4">
+            <div class="copyright">
+                &copy; <strong>@Localizer["Wszystkie prawa zastrzeżone."]</strong>
+            </div>
+            <div class="credits">
+                <strong>@Localizer["Grupa P1D3N"]</strong>
+            </div>
+        
+        <div class="dark-mode-toggle-container">
+            <button class="fa fa-moon-o" id="dark-mode-toggle"><strong>Dark Mode</strong></button>
+        </div>
+
+            <div class="language-selector">
+                <a asp-controller="Home" class="lang-buttons" asp-action="SetLanguage" asp-route-culture="en-US" asp-route-returnUrl="@Context.Request.Path">English</a>
+                <a asp-controller="Home" class="lang-buttons" asp-action="SetLanguage" asp-route-culture="pl-PL" asp-route-returnUrl="@Context.Request.Path">Polski</a>
+            </div>
+        </div>
+ 
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+
+
+
+<script>
+    const toggleDarkMode = () => {
+        document.body.classList.toggle('dark-mode');
+        localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+    };
+    if (localStorage.getItem('darkMode') === 'true') {
+        document.body.classList.add('dark-mode');
+    }
+    document.getElementById('dark-mode-toggle').addEventListener('click', toggleDarkMode);
+</script>

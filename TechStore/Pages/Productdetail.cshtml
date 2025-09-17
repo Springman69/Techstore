@@ -1,0 +1,388 @@
+﻿@page "/ProductDetails/{id:int}"
+@using TechStore.Pages
+@model TechStore.Pages.OpiniaPageModel
+@using TechStore.Models
+@using TechStore.Repositories
+@inject IOpiniaRepository OpiniaRepository
+@{
+    ViewData["Title"] = "Szczegółowy opis produktu";
+    var productId = Model.Id;
+    var opinie = OpiniaRepository.GetAllOpinie();
+    var liczbaOpinii = opinie.Count();
+
+}
+
+
+<link rel="stylesheet" href="~/css/product-details.css" />
+<script src="~/js/product-details.js" defer></script>
+
+<div class="product-page-container">
+    <div class="carousel-container">
+        <div class="carousel-slide">
+            <img src= "@Model.Product.Image" alt="Realme C55-1" class="carousel-image">
+            <img src="@Model.ProductSpecification.Picture2" alt="Realme C55-2" class="carousel-image">
+            <img src="@Model.ProductSpecification.Picture3" alt="Realme C55-3" class="carousel-image">
+          
+        </div>
+        <a class="prev" onclick="moveSlide(-1)">&#10094;</a>
+        <a class="next" onclick="moveSlide(1)">&#10095;</a>
+    </div>
+    <div class="product-details-container">
+       
+
+            <h1 class="product-title"><strong>@Model.Product.Name</strong></h1>
+
+            <div class="product-info-container">
+                <div class="product-specs">
+                @if (Model.Product.CategoryId == 1) 
+                {
+                    <p><strong>System:</strong> @Model.ProductSpecification.Parametr1</p>
+                    <p><strong>RAM:</strong> @Model.ProductSpecification.Parametr2</p>
+                    <p><strong>Procesor:</strong> @Model.ProductSpecification.Parametr3</p>
+                    <p><strong>Pamięć wewntęrzna:</strong> @Model.ProductSpecification.Parametr4</p>
+                    <p><strong>Karta Graficzna:</strong> @Model.ProductSpecification.Parametr5</p>
+                    <p><strong>Matryca:</strong> @Model.ProductSpecification.Parametr6</p>
+                    <p><strong>Gwarancja:</strong> @Model.ProductSpecification.Parametr7</p>
+
+                }
+                else if (Model.Product.CategoryId == 2) 
+                {
+                    <p><strong>System:</strong> @Model.ProductSpecification.Parametr1</p>
+                    <p><strong>RAM:</strong> @Model.ProductSpecification.Parametr2</p>
+                    <p><strong>Procesor:</strong> @Model.ProductSpecification.Parametr3</p>
+                    <p><strong>Pamięć wbudowana:</strong> @Model.ProductSpecification.Parametr4</p>
+                    <p><strong>Aparat:</strong> @Model.ProductSpecification.Parametr5</p>
+                    <p><strong>Wyświetlacz:</strong> @Model.ProductSpecification.Parametr6</p>
+                    <p><strong>Łączność:</strong> @Model.ProductSpecification.Parametr7</p>
+                }
+
+                else if (Model.Product.CategoryId == 3) 
+                {
+                    <p><strong>System:</strong> @Model.ProductSpecification.Parametr1</p>
+                    <p><strong>RAM:</strong> @Model.ProductSpecification.Parametr2</p>
+                    <p><strong>Procesor:</strong> @Model.ProductSpecification.Parametr3</p>
+                    <p><strong>Pamięć wewnętrzna:</strong> @Model.ProductSpecification.Parametr4</p>
+                    <p><strong>Karta Graficzna:</strong> @Model.ProductSpecification.Parametr5</p>
+                    <p><strong>Moc zasilacza:</strong> @Model.ProductSpecification.Parametr6</p>
+                    <p><strong>Dodatkowe wyposażenie:</strong> @Model.ProductSpecification.Parametr7</p>
+                }
+
+                else if (Model.Product.CategoryId == 7) 
+                {
+                    <p><strong>Zastosowanie:</strong> @Model.ProductSpecification.Parametr1</p>
+                    <p><strong>Kolor:</strong> @Model.ProductSpecification.Parametr2</p>
+                    <p><strong>Gwarancja:</strong> @Model.ProductSpecification.Parametr3</p>
+                }
+                
+            </div>
+            
+            </div>
+
+            </div>
+        
+    <div class="price-action-container">
+        @if (Model.Product.IsOnSale)
+        {
+            <p class="price">@Model.Product.SalePrice PLN<br /><span class="oldprice">@Model.Product.Price PLN</span></p>
+            }
+            else{
+            <p class="price">@Model.Product.Price PLN</p>
+            }
+        <form method="post" asp-page-handler="AddToSession">
+            <input type="hidden" asp-for="Id" />
+            <button class="add-to-cart-button" type="submit">
+                Dodaj do koszyka
+                <img src="~/images/cart-submit.svg" alt="Cart" class="icon" />
+            </button>
+        </form>
+        <button class="add-to-favorites-button">
+            <img src="~/images/heart.svg" alt="Add to Favorites" class="icon" />
+        </button>
+        <div class="delivery-info-container">
+            <p class="delivery-info">
+                Dostawa za 24 h
+                <img src="~/images/serwis.svg" alt="Delivery" class="icon" />
+            </p>
+        </div>
+    </div>
+
+    <div class="tab-navigation">
+        <a href="#description">Opis</a>
+        <a href="#specification">Specyfikacja techniczna</a>
+        <a href="#reviews">Opinie</a>
+    </div>
+</div>
+<div class="productdetails">
+    <div id="description">
+        <h2 class="section-title">Opis urządzenia</h2>
+        <div class="description-section">
+            <p class="section-subtitle">@Model.ProductSpecification.Header1</p>
+            <img src="@Model.ProductSpecification.Picture6" alt="Realme C55-6" class="description-image">
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 divider"></div>
+        </div>
+
+        <div class="description-section">
+            <p class="section-subtitle">@Model.ProductSpecification.Header2</p>
+            @Model.ProductSpecification.Description1 <br />
+            <img src="@Model.ProductSpecification.Picture7" alt="Realme C55-7" class="description-image">
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-12 divider"></div>
+        </div>
+
+        <div class="description-section">
+            <p class="section-subtitle">@Model.ProductSpecification.Header3</p>
+            @Model.ProductSpecification.Description2  <br />
+            <img src="@Model.ProductSpecification.Picture8" alt="Realme C55-8" class="description-image">
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 divider"></div>
+        </div>
+
+    </div>
+</div>
+
+<div id="specification">
+    <h2 class="section-title">Specyfikacja techniczna</h2>
+
+    <table class="spec-table">
+
+        <tr>
+            <th>Parametr</th>
+            <td>Dane</td>
+
+        </tr>
+
+        <tr>
+            <th>Parametr</th>
+            <td>Dane</td>
+
+        </tr>
+
+        <tr>
+            <th>Parametr</th>
+            <td>Dane</td>
+
+        </tr>
+
+        <tr>
+            <th>Parametr</th>
+            <td>Dane</td>
+
+        </tr>
+
+        <tr>
+            <th>Parametr</th>
+            <td>Dane</td>
+
+        </tr>
+
+        <tr>
+            <th>Parametr</th>
+            <td>Dane</td>
+
+        </tr>
+
+        <tr>
+            <th>Parametr</th>
+            <td>Dane</td>
+
+        </tr>
+
+        <tr>
+            <th>Parametr</th>
+            <td>Dane</td>
+
+        </tr>
+
+        <tr>
+            <th>Parametr</th>
+            <td>Dane</td>
+
+        </tr>
+
+        <tr>
+            <th>Parametr</th>
+            <td>Dane</td>
+
+        </tr>
+
+        <tr>
+            <th>Parametr</th>
+            <td>Dane</td>
+
+        </tr>
+        <tr>
+            <th>Parametr</th>
+            <td>Dane</td>
+
+        </tr>
+        <tr>
+            <th>Parametr</th>
+            <td>Dane</td>
+
+        </tr>
+        <tr>
+            <th>Parametr</th>
+            <td>Dane</td>
+
+        </tr>
+
+        <tr>
+            <th>Parametr</th>
+            <td>Dane</td>
+
+        </tr>
+        <tr>
+            <th>Parametr</th>
+            <td>Dane</td>
+
+        </tr>
+        <tr>
+            <th>Parametr</th>
+            <td>Dane</td>
+
+        </tr>
+        <tr>
+            <th>Parametr</th>
+            <td>Dane</td>
+
+        </tr>
+
+        <tr>
+            <th>Parametr</th>
+            <td>Dane</td>
+
+        </tr>
+
+        <tr>
+            <th>Parametr</th>
+            <td>Dane</td>
+
+        </tr>
+        <tr>
+            <th>Parametr</th>
+            <td>Dane</td>
+
+        </tr>
+        <tr>
+            <th>Parametr</th>
+            <td>Dane</td>
+
+        </tr>
+    </table>
+</div>
+<br />
+
+<div id="reviews">
+    <h2>Opinie</h2>
+    <div class="average-rating">
+        <div class="rating-value">
+            <span class="rating-number">5</span>/5
+            <div class="stars">★★★★★</div>
+        </div>
+        <div class="rating-count">@liczbaOpinii Opini</div>
+        <div class="recommendation-count">@liczbaOpinii użytkowników poleca ten produkt</div>
+
+        <div class="add-review">
+            <span>Masz ten produkt? Pomóż innym w wyborze, dodaj swoją opinię.</span>
+            <a href="#review-form" class="add-review-button">Dodaj opinię</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 divider"></div>
+    </div>
+
+    <div class="user-reviews-container">
+
+
+        <div class="user-reviews-container">
+            @foreach (var opinia in opinie)
+            {
+                <div class="user-review">
+
+                    <h3>@opinia.Name</h3><br>
+                    <p class="opinion-title">@opinia.Title</p>
+                    <p class="opinion-description">@opinia.Description</p> <br>
+                    <p>Ocena jakości: @opinia.Quality</p>
+                    <p>Ocena funkcjonalności: @opinia.Function</p>
+
+                    @{
+                        var overallRating = (opinia.Quality + opinia.Function) / 2.0;
+                    }
+
+                    <p>Ocena ogólna: @overallRating</p> <br> <br> <br>
+                    <p>Opublikowano: @opinia.Data.ToString("dd MMM yyyy")</p>
+                    <hr />
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="review-form-and-ratings-container">
+        <div class="review-form-container">
+            <h2>Podziel się swoją opinią</h2>
+            <form method="post" id="review-form">
+                <div class="form-row">
+                    <span class="stars">★★★★★</span>
+                </div>
+                <div class="form-row">
+                    <label asp-for="Opinia.Name">Imię/Nick *</label>
+                    <input asp-for="Opinia.Name" type="text" id="Opinia.Name" name="Opinia.Name" required>
+                </div>
+                <div class="form-row">
+                    <label asp-for="Opinia.Email">Email *</label>
+                    <input asp-for="Opinia.Email" type="email" id="Opinia.Email" name="Opinia.Email" required>
+                </div>
+                <div class="form-row">
+                    <label asp-for="Opinia.Title">Tytuł opinii *</label>
+                    <input asp-for="Opinia.Title" type="text" id="Opinia.Title" name="Opinia.Title" required>
+                </div>
+                <div class="form-row">
+                    <label asp-for="Opinia.Description">Napisz swoją opinię o produkcie *</label>
+                    <textarea asp-for="Opinia.Description" id="Opinia_Description" name="Opinia.Description" required></textarea>
+                </div>
+
+
+
+
+                <div class="individual-rating-container">
+                    <span>Jakość</span>
+                    <div class="stars-overview" data-category="quality">
+                        @for (int i = 1; i <= 5; i++)
+                        {
+                            <span class="star" data-value="@i">★</span>
+                        }
+                        <span class="rating-result">0/5</span>
+                    </div>
+                </div>
+
+
+                <div class="individual-rating-container">
+                    <span>Funkcje</span>
+                    <div class="stars-overview" data-category="features">
+                        @for (int i = 1; i <= 5; i++)
+                        {
+                            <span class="star" data-value="@i">★</span>
+                        }
+                        <span class="rating-result">0/5</span>
+                    </div>
+                </div>
+
+                <br /><div class="form-row">
+                    <button type="submit" class="submit-button" id="wyslijWiadomosc">Prześlij</button>
+                </div>
+                <input asp-for="Opinia.Quality" type="hidden" name="Opinia.Quality" id="Quality" value="0" required>
+                <input asp-for="Opinia.Function" type="hidden" name="Opinia.Function" id="Function" value="0" required>
+                <input asp-for="Opinia.Overall" type="hidden" name="Opinia.Overall" id="Overall" value="0" required>
+            </form>
+        </div>
+    </div>
+</div>
+

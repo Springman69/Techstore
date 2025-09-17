@@ -1,0 +1,30 @@
+﻿@page
+@model TechStore.Areas.Identity.Pages.Account.Manage.ManageReportsModel
+@{
+    <h1>Lista zgłoszeń</h1>
+
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID zgłoszenia</th>
+                    <th>Tytuł</th>
+                    <th>Email Klienta</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var report in Model.Reports)
+                {
+                    if(report.Answered == false)
+                    {
+                        <tr onclick="window.location.href='ReportDetails?id=@report.Id'">
+                            <td>@report.Id</td>
+                            <td>@report.Title</td>
+                            <td>@report.Client.Email</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+}

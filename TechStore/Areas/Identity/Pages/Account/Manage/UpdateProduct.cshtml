@@ -1,0 +1,82 @@
+﻿@page
+@model TechStore.Areas.Identity.Pages.Account.Manage.UpdateProductModel
+@{
+    ViewData["Title"] = "Edytuj Produkt";
+}
+
+<style>
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+    }
+</style>
+
+<h1>Edytuj Produkt</h1>
+
+<form method="post">
+    <div class="form-group">
+        <label for="Name">Nazwa Produktu:</label>
+        <input type="text" class="form-control" id="Name" name="Product.Name" value="@Model.Product.Name">
+    </div>
+
+    <div class="form-group">
+        <label for="CategoryId">Category:</label>
+        <select id="CategoryId" name="SelectedCategoryId" class="form-control" asp-items="@(new SelectList(Model.Categories ?? new List<Category>(), "Id", "Name"))">
+            <option value="">Select a category...</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="Description">Opis:</label>
+        <input type="text" class="form-control" id="Description" name="Product.Description" value="@Model.Product.Description" >
+    </div>
+
+ 
+    <div class="form-group">
+        <label for="Price">Price:</label>
+        <input type="number" id="Price" name="Price" step="0.01" class="form-control" value="@Model.Product.Price"  />
+    </div>
+
+    <div class="form-group">
+        <label for="Image">Image URL:</label>
+        <input type="text" class="form-control" id="Image" name="Product.Image" value="@Model.Product.Image" >
+    </div>
+
+    <div class="form-group">
+        <label for="Company">Firma:</label>
+        <input type="text" class="form-control" id="Company" name="Product.Company" value="@Model.Product.Company" >
+    </div>
+
+    <div class="form-group">
+        <label for="Cpu">CPU:</label>
+        <input type="text" class="form-control" id="CPU" name="ProductSpec.Cpu" value="@Model.ProductSpecification.Parametr1" >
+    </div>
+
+    <div class="form-group">
+        <label for="Disk">Dysk:</label>
+        <input type="text" class="form-control" id="Disk" name="ProductSpec.Disk" value="@Model.ProductSpecification.Parametr2" >
+    </div>
+
+    <div class="form-group">
+        <label for="RAM">RAM:</label>
+        <input type="text" class="form-control" id="RAM" name="ProductSpec.Ram" value="@Model.ProductSpecification.Parametr3" >
+    </div>
+
+    <div class="form-group">
+        <label for="GPU">GPU:</label>
+        <input type="text" class="form-control" id="GPU" name="ProductSpec.Gpu" value="@Model.ProductSpecification.Parametr4" >
+    </div>
+
+    <div class="form-group">
+        <label for="System">System:</label>
+        <input type="text" class="form-control" id="System" name="ProductSpec.System" value="@Model.ProductSpecification.Parametr5" >
+    </div>
+
+    <button type="submit" class="btn btn-primary">Zapisz zmiany</button>
+</form>
+
+<a asp-page="/Account/Manage/ManageWarehouse" class="btn btn-secondary mt-3">Powrót do listy produktów</a>

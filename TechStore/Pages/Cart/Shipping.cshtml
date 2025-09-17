@@ -1,0 +1,317 @@
+﻿@page
+@model TechStore.Pages.Cart.CartModel
+
+@{
+    ViewData["Title"] = "Złóż zamówienie";
+}
+
+<link rel="stylesheet" href="~/css/shipping.css" />
+
+<div class="container">
+    <div class="form-container">
+        <form method="post">
+            <div class="form-row">
+
+                <h2>Dane odbiorcy przesyłki</h2>
+
+                <div class="recipient-type-container">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="recipientType" id="privatePerson" value="privatePerson" checked onchange="toggleFormType('private')">
+                        <label class="form-check-label" for="privatePerson">Osoba prywatna</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="recipientType" id="company" value="company" onchange="toggleFormType('company')">
+                        <label class="form-check-label" for="company">Firma</label>
+                    </div>
+                </div>
+
+
+                
+ <div id="privateForm">
+     
+     <div class="form-row">
+                <div class="form-group col">
+                    <label for="firstName">Imię:</label>
+                    <input type="text" id="firstName" name="firstName" class="form-control" required />
+                </div>
+                <div class="form-group col">
+                    <label for="lastName">Nazwisko:</label>
+                    <input type="text" id="lastName" name="lastName" class="form-control" required />
+                </div>
+            </div>
+                
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" class="form-control" required />
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Nr telefonu:</label>
+                <input type="tel" id="phone" name="phone" class="form-control" placeholder="+48 ___ ___ ___" required />
+            
+            </div>
+
+
+            <div class="form-row">
+                <div class="form-group col">
+                    <label for="address">Ulica i numer domu:</label>
+                    <input type="text" id="address" name="address" class="form-control" required />
+                </div>
+                <div class="form-group col">
+                    <label for="postalCode">Kod pocztowy:</label>
+                    <input type="text" id="postalCode" name="postalCode" class="form-control" placeholder="__-___" required />
+                </div>
+                <div class="form-group col">
+                    <label for="city">Miejscowość:</label>
+                    <input type="text" id="city" name="city" class="form-control" required />
+                </div>
+            </div>
+        </div>
+</div>
+
+
+ <div id="companyForm" style="display: none;">
+    
+     <div class="form-group">
+        <label for="companyName">Nazwa firmy:</label>
+        <input type="text" id="companyName" name="companyName" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label for="nip">NIP:</label>
+        <input type="text" id="nip" name="nip" class="form-control" placeholder="_______" required />
+    </div>
+
+    <div class="form-group">
+        <label for="companyEmail">Email:</label>
+        <input type="email" id="companyEmail" name="companyEmail" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label for="companyPhone">Nr telefonu:</label>
+        <input type="tel" id="companyPhone" name="companyPhone" class="form-control" placeholder="+48 ___ ___ ___" required />
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col">
+            <label for="companyAddress">Ulica i numer domu:</label>
+            <input type="text" id="companyAddress" name="companyAddress" class="form-control" required />
+        </div>
+        <div class="form-group col">
+            <label for="companyPostalCode">Kod pocztowy:</label>
+            <input type="text" id="companyPostalCode" name="companyPostalCode" class="form-control" placeholder="__-___" required />
+        </div>
+        <div class="form-group col">
+            <label for="companyCity">Miejscowość:</label>
+            <input type="text" id="companyCity" name="companyCity" class="form-control" required />
+        </div>
+    </div>
+</div>
+
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="newsletter">
+                <label class="form-check-label" for="newsletter">Chcę dostawać newsletter i korzystać ze specjalnych promocji</label>
+            </div>
+
+
+        </form>
+    </div>
+
+        <div class="order-summary-container sticky-summary mt-5">
+            
+
+
+            <div class="order-summary-details">
+                <p>Wartość produktów: <span></span></p>
+                <p>Dostawa: <span>13,90 zł</span></p>
+                <div class="order-summary-line"></div>
+                <p>Do zapłaty: <span>10011,92 zł</span></p>
+            </div>
+            <button type="submit" class="btn btn-primary order-submit-button">Złóż zamówienie</button>
+
+        </div>
+
+    
+
+</div>
+
+<form method="post">
+
+<div class="delivery-payment">
+    <h2>Dostawa</h2>
+
+    <div class="custom-radio">
+    <input type="radio" id="kurierExpress" name="deliveryOption" value="kurierExpress">
+    <label class="radio-label" for="kurierExpress">
+        <img src="~/images/dpd_logo.png" alt="Kurier DPD" class="radio-image">
+        <span>Kurier DPD</span>
+        <span class="radio-description">U Ciebie za ok. 5 dni (środa)</span>
+        <span>15,99 zł</span>
+        <span class="checkmark"></span>
+    </label>
+</div>
+
+
+<div class="custom-radio">
+    <input type="radio" id="kurierStandard" name="deliveryOption" value="kurierStandard">
+    <label class="radio-label" for="kurierStandard">
+        <img src="~/images/gls.png" alt="Kurier GLS" class="radio-image">
+        <span>Kurier GLS</span>
+        <span class="radio-description">U Ciebie za ok. 6 dni (czwartek)</span>
+        <span>13,90 zł</span>
+        <span class="checkmark"></span>
+    </label>
+</div>
+
+
+
+<div class="custom-radio">
+    <input type="radio" id="inpost" name="deliveryOption" value="inpost">
+    <label class="radio-label" for="inpost">
+        <img src="~/images/inpost.svg.png" alt="Paczkomaty Inpost" class="radio-image">
+        <span>Paczkomaty Inpost</span>
+        <span class="radio-description">U Ciebie za ok. 3 dni (poniedziałek)</span>
+        <span>9,99 zł</span>
+        <span class="checkmark"></span>
+    </label>
+</div>
+
+
+
+<div class="custom-radio">
+    <input type="radio" id="ups" name="deliveryOption" value="ups">
+    <label class="radio-label" for="ups">
+        <img src="~/images/ups.png" alt="Kurier UPS" class="radio-image">
+        <span>Kurier UPS</span>
+        <span class="radio-description">U Ciebie za ok. 10 dni (poniedziałek)</span>
+        <span>16,50 zł</span>
+        <span class="checkmark"></span>
+    </label>
+</div>
+
+
+
+<div class="custom-radio">
+    <input type="radio" id="orlen" name="deliveryOption" value="orlen">
+    <label class="radio-label" for="orlen">
+        <img src="~/images/orlen.png" alt="Orlen paczka" class="radio-image">
+        <span>Orlen paczka</span>
+        <span class="radio-description">U Ciebie za ok. 3 dni (poniedziałek)</span>
+        <span>10,90 zł</span>
+        <span class="checkmark"></span>
+    </label>
+</div>
+
+
+
+<div class="custom-radio">
+    <input type="radio" id="osobisty" name="deliveryOption" value="osobisty">
+    <label class="radio-label" for="osobisty">
+        <img src="~/images/odbior.svg" alt="Odbiór osobisty" class="radio-image">
+        <span>Odbiór osobisty</span>
+        <span class="radio-description">W sklepach stacjonarnych</span>
+        <span>Za darmo</span>
+        <span class="checkmark"></span>
+    </label>
+</div>
+   
+
+</div>
+
+</form>
+
+
+<form method="post">
+
+<div class="delivery-payment">
+    <h2>Płatność</h2>
+
+    <div class="custom-radio">
+    <input type="radio" id="blik" name="deliveryOption" value="blik">
+    <label class="radio-label" for="blik">
+        <img src="~/images/blik.png" alt="blik" class="radio-image">
+        <span>BLIK</span>
+        <span class="checkmark"></span>
+    </label>
+</div>
+
+
+   <div class="custom-radio">
+    <input type="radio" id="card" name="deliveryOption" value="card">
+    <label class="radio-label" for="card">
+        <img src="~/images/card.jpg" alt="card" class="radio-image">
+        <span>Karta płatnicza online</span>
+        <span class="checkmark"></span>
+    </label>
+</div>
+
+
+   <div class="custom-radio">
+    <input type="radio" id="przelew" name="deliveryOption" value="przelew">
+    <label class="radio-label" for="przelew">
+        <img src="~/images/przelew.png" alt="przelew" class="radio-image">
+        <span>Przelew błyskawiczny</span>
+        <span class="checkmark"></span>
+    </label>
+</div>
+
+
+
+   <div class="custom-radio">
+    <input type="radio" id="google" name="deliveryOption" value="google">
+    <label class="radio-label" for="google">
+        <img src="~/images/google.png" alt="google" class="radio-image">
+        <span>Google Pay</span>
+        <span class="checkmark"></span>
+    </label>
+</div>
+
+
+   <div class="custom-radio">
+    <input type="radio" id="tradycyjny" name="deliveryOption" value="tradycyjny">
+    <label class="radio-label" for="tradycyjny">
+        <img src="~/images/tradycyjny.svg" alt="tradycyjny" class="radio-image">
+        <span>Przelew tradycyjny</span>
+        <span class="checkmark"></span>
+    </label>
+</div>
+
+
+
+   <div class="custom-radio">
+    <input type="radio" id="raty" name="deliveryOption" value="raty">
+    <label class="radio-label" for="raty">
+        <img src="~/images/raty.png" alt="raty" class="radio-image">
+        <span>Raty</span>
+        <span class="checkmark"></span>
+    </label>
+</div>
+
+
+   <div class="custom-radio">
+    <input type="radio" id="paypo" name="deliveryOption" value="paypo">
+    <label class="radio-label" for="paypo">
+        <img src="~/images/paypo.png" alt="paypo" class="radio-image">
+        <span>PayPo - zapłać za 30 dni</span>
+        <span class="checkmark"></span>
+    </label>
+</div>
+
+</div>
+
+</form>
+
+
+<br />
+<div class="additional-options">
+    <a href="/cart/cart" class="back-to-cart">Wróć do koszyka</a>
+    <br />
+    <button type="button" id="addCommentButton" class="btn-add-comment">Uwagi do zamówienia</button>
+    
+    
+    <div id="commentSection" style="display: none;">
+        <textarea id="orderComment" name="orderComment" placeholder="Wpisz komentarz..." rows="4"></textarea>
+    </div>
+</div>
+
+    <script src="~/js/shipping.js"></script>

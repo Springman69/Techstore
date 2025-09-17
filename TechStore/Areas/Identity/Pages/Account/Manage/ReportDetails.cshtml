@@ -1,0 +1,33 @@
+﻿@page
+@model TechStore.Areas.Identity.Pages.Account.Manage.ReportDetailsModel
+
+<div class="container">
+    <div class="row mt-4">
+        <div class="col">
+            <h3>Zgłoszenie użytkownika: @Model.Report.Client.Email</h3>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">@Model.Report.Title</h5>
+                    <p class="card-text">@Model.Report.Description</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col">
+            <form method="post">
+                
+                <div class="form-group">
+                    <label asp-for="Input.Answer">Odpowiedź</label>
+                    <textarea asp-for="Input.Answer" class="form-control" rows="4"></textarea>
+                    <span asp-validation-for="Input.Answer" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-primary">Odpowiedz</button>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,166 @@
+﻿@page
+@using TechStore.Models;
+@model CartModel
+@{
+    ViewData["Title"] = "Twój Koszyk";
+}
+
+<link rel="stylesheet" href="~/css/cart.css" />
+
+<a title="TechStore" style="font-style: oblique;" href="/">TechStore</a>
+<img src="~/images/arrow.svg" class="icon-dark-mode" loading="lazy" alt="Koszyk" style="height: 1em; vertical-align: middle;"> Twój koszyk
+
+<div class="cart-header">
+    <div class="header-content">
+        <h2>Koszyk</h2>
+        <div class="cart-actions">
+            <button class="save-list-button">
+                <img src="~/images/save-icon.svg"  alt="Save" /> Zapisz jako listę
+            </button>
+
+            <button class="clear-cart-button">
+                <img src="~/images/clear-icon.svg"  alt="Clear" /> Wyczyść koszyk
+            </button>
+
+        </div>
+    </div>
+</div>
+
+<div class="cart-body">
+    <div class="cart-products">
+        @if (Model.SessionProductList != null && Model.SessionProductList.Any())
+        {
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Miniatura</th>
+                            <th>Nazwa</th>
+                            <th>Cena</th>
+                            <th>Ilość</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var groupedProduct in Model.SessionProductList.GroupBy(p => p.Id))
+                        {
+                            var firstProduct = groupedProduct.First();
+                            <tr>
+                                <td>@firstProduct.Id</td>
+                                <td>
+                                    <img src="@firstProduct.Image" alt="Miniatura" style="max-width: 90px; max-height: 90px;" />
+                                </td>
+                                <td>@firstProduct.Name</td>
+                                <td>@firstProduct.Price zł</td>
+                                <td>
+                                    <select class="custom-select custom-select-sm quantity-dropdown" data-product-id="@firstProduct.Id" data-product-price="@firstProduct.Price">
+                                     @for (int i = 1; i <= 10; i++)
+                                        {
+                                            <option value="@i" selected="@(i == groupedProduct.Count())">@i</option>
+                                         }
+                                    </select>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        }
+
+
+        else
+        {
+            <br />
+        <div class="cart-empty">
+            
+            <h3>Twój koszyk jest pusty.</h3>
+            <p>Dodaj produkty do koszyka.</p>
+                <a href="/Index" class="continue-shopping-button">Kontynuuj zakupy</a>
+        </div>
+        }
+
+    </div>
+   
+    <div class="cart-summary">
+        <div class="promo-code">
+
+            <button class="promo-code-toggle" onclick="togglePromoCode()">
+                Masz kod promocyjny?
+                <img src="~/images/arrow-down.svg" class="arrow" alt="Toggle" />
+            </button>
+
+            <div class="promo-code-input" style="display: none;">
+                <input type="text" id="promoCode" placeholder="Wprowadź kod" />
+                <button class="apply-discount-button" onclick="applyPromoCode()">Zastosuj
+                    <img src="~/images/discount.svg" class="icon-dark-mode" alt="Discount" />
+                </button>
+            </div>
+        </div>
+
+        <div class="total-amount">
+            <h3>
+                Łączna kwota: <td>
+                    @{
+
+                        if (Model.SessionProductList != null && Model.SessionProductList.Any())
+                        {
+                            decimal total = Model.SessionProductList.Sum(p => p.Price);
+                            <span>@total</span>
+                        } 
+                    } ZŁ
+                </td>
+            </h3>
+             </div>
+
+        <div class="checkout-actions">
+            <a asp-page="/Cart/Index" class="delivery-button">Przejdź do dostawy
+                <img src="~/images/cart-submit.svg" alt="Buy" />
+            </a>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="row">
+    <div class="col-md-12 divider"></div>
+</div>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="contact-category">
+                <h3>
+                    <img src="~/images/safe.svg" class="icon-dark-mode" style="width: 1em; height: 1em; vertical-align: middle;" alt="Chat" /> Bezpieczne zakupy
+                </h3>
+                Dzięki szyfrowaniu TLS
+            </div>
+        </div>
+
+
+        <div class="col-md-4">
+            <div class="contact-category">
+                <h3>
+                    <img src="~/images/return-box.svg" class="icon-dark-mode" style="width: 1em; height: 1em; vertical-align: middle;" alt="Chat" /> Darmowe zwroty
+                </h3>
+                Darmowa dostawa do 14 dni. Paczkomatem lub w naszych salonach
+            </div>
+        </div>
+
+
+        <div class="col-md-4">
+            <div class="contact-category">
+                <h3>
+                    <img src="~/images/support.svg" class="icon-dark-mode" style="width: 1em; height: 1em; vertical-align: middle;" alt="Chat" /> Wsparcie techniczne
+                </h3>
+                E-mail, telefon i czat
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script src="~/js/cart.js"></script>

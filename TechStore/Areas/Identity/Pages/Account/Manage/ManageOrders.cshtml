@@ -1,0 +1,77 @@
+﻿@page
+@model TechStore.Areas.Identity.Pages.Account.Manage.ManageOrdersModel
+@{
+   <div class="container mt-4">
+    <h1>Zamówienia</h1>
+        <div class="row">
+            <div class="col-6 mb-4">
+                <form method="post">
+                    <div class="mx-2">
+                        <select asp-for="SelectedStatus">
+                            @foreach (var status in Model.OrderStatus)
+                            {
+                                <option value="@status">@status</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="mt-3 mx-2">
+                        <button type="submit" class="btn btn-outline-primary" asp-page-handler="FiltrSelectedStatus">Filtruj</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-6">
+                <form method="post">
+                    <div class="mx-2">
+                        <label for="startDatePicker">Od:</label>
+                        <input type="date" asp-for="StartDate" id="startDatePicker" placeholder="Wybierz datę początkową">
+                    </div>
+                    <div class="mx-2 mt-3">
+                        <label for="endDatePicker">Do:</label>
+                        <input type="date" asp-for="EndDate" id="endDatePicker" placeholder="Wybierz datę końcową">
+                    </div>
+                    <div class="mt-3 mx-2">
+                        <button type="submit" class="btn btn-outline-primary" asp-page-handler="FiltrSelectedDateRange">Filtruj po dacie</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        @foreach (var o in Model.Orders)
+        {
+            <div class="row mb-4">
+                <div class="card mb-5 col-md-12">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card-body">
+                                <h5 class="card-title"><strong>@o.OrderStatus</strong></h5>
+                                <p>@o.OrderDate.Date.ToString("yyyy-MM-dd")</p>
+                                <p>nr @o.Id</p>
+                                <p><strong>@o.OrderValue zł</strong></p>
+                                <a href="./OrderDetails?id=@o.Id" class="btn btn-primary">View Details</a>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="row">
+                                @foreach (var productOrderRelation in o.ProductOrderRelations)
+                                {
+                                    <div class="col-md-3 mb-3">
+                                        <div class="card mt-4">
+                                            @if (productOrderRelation.Product != null && !string.IsNullOrEmpty(productOrderRelation.Product.Image))
+                                            {
+                                                <img src="@productOrderRelation.Product.Image" class="card-img-top img-fluid" style="max-width: 100%; height: auto;" />
+                                            }
+                                            else
+                                            {
+                                                <p class="card-text">No image available</p>
+                                            }
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+</div>
+
+}

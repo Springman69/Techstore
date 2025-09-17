@@ -1,0 +1,104 @@
+﻿@page
+@using TechStore.Pages.Kontakt
+@model KontaktModel
+@inject IViewLocalizer Localizer
+@{
+    ViewData["Title"] = "Kontakt";
+}
+
+<link rel="stylesheet" href="~/css/kontakt.css" />
+
+<a title="TechStore" style="font-style: oblique;" href="/">TechStore</a>
+<img src="~/images/arrow.svg" loading="lazy" alt="Kontakt" style="height: 1em; vertical-align: middle;"> @Localizer["head"]
+
+<div style="text-align: left;">
+    <h2 style="font-size: 50px;">@Localizer["Kontakt"]</h2>
+</div>
+<br />
+
+<br />
+<div class="row">
+    <div class="col-md-3">
+        <div class="contact-category">
+            <h3>
+                <img src="~/images/laptop.svg" class="icon-dark-mode" style="width: 1em; height: 1em; vertical-align: middle;" alt="Sklep internetowy" />
+                @Localizer["shops"]
+            </h3>
+            <p><a href="mailto:techstore@wp.pl">Techstore@wp.pl</a></p>
+            <p><a href="tel:+48699699699">+48 699 699 699</a></p>
+            <p><em>@Localizer["days1"]</em> ---> 8:30-21:30<br /><em>@Localizer["days2"]</em> ---> 9:30-19:30</p>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="contact-category">
+            <h3>
+                <img src="~/images/serwis.svg" class="icon-dark-mode" style="width: 1em; height: 1em; vertical-align: middle;" alt="Serwis" />
+
+                @Localizer["service"]
+            </h3>
+            <p><a href="mailto:serwis.techstore@wp.pl">serwis.techstore@wp.pl</a></p>
+            <p><a href="tel:+48420420420">+48 420 420 420</a></p>
+            <p><em>@Localizer["days1"]</em> ---> <em>10:30-19:30</em><br /><em>@Localizer["days2"]</em> ---> <em>11:30-18:30</em></p>
+        </div>
+    </div>
+
+
+    <div class="col-md-3">
+        <div class="contact-category">
+            <h3>
+                <img src="~/images/chat.svg" class="icon-dark-mode" style="width: 1em; height: 1em; vertical-align: middle;" alt="Chat" />
+
+                @Localizer["chat"]
+            </h3>
+            <p><a href="https://api.whatsapp.com/send?phone=696969699">@Localizer["whatsapp"]</a></p>
+        </div>
+    </div>
+
+
+    <div class="col-md-3">
+        <div class="contact-category">
+            <h3>
+                <img src="~/images/geo.svg" class="icon-dark-mode" style="width: 1em; height: 1em; vertical-align: middle;" alt="Adres" />
+
+                @Localizer["adress"]
+            </h3>
+            <p>ul. Prószkowska 4</p>
+            <p>Opole 45-048</p>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-md-12 divider"></div>
+</div>
+
+<div>
+    <h3>@Localizer["head1"]</h3>
+    <br />
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2529.5460948920904!2d17.900172588275595!3d50.654120499543325!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x471053bb1bcdafab%3A0xf2ef41915344d5dd!2sPolitechnika%20Opolska!5e0!3m2!1spl!2spl!4v1699726378626!5m2!1spl!2spl" width="100%" height="500" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+</div>
+
+<div class="row">
+    <div class="col-md-12 divider"></div>
+</div>
+
+<form method="post">
+    <div class="form-group">
+        <label for="title">@Localizer["title"]</label>
+        <input type="text" class="form-control" id="title" asp-for="@Model.report.Title">
+    </div>
+    <div class="form-group">
+        <label for="description">@Localizer["description"]</label>
+        <textarea class="form-control" id="description" rows="5" asp-for="@Model.report.Description"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-2">Zapisz</button>
+</form>
+
+
+
+<script src="~/js/contact-form.js"></script>
+
+

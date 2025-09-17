@@ -1,0 +1,162 @@
+﻿@page
+@model IndexModel
+@inject IViewLocalizer Localizer
+@{
+    ViewData["Title"] = "Home page";
+}
+<div id="banner-reklamowy" class="carousel slide">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+        <div class="carousel-item active c-item">
+            <img src="~/images/slider1.jpg" class="d-block w-100 c-img" alt="...">
+            <div class="carousel-caption top-0 mt-4" style="margin-left: 10rem;">
+                <p class="mt-5 fs-4 text-uppercase">@Localizer["Rabaty nawet do 50%"]</p>
+                <h1 class="display-1 fw-bolder text-capitalize">@Localizer["Wyprzedaż smartfonów!"]</h1>
+            </div>
+        </div>
+        <div class="carousel-item c-item">
+            <img src="~/images/slider2.jpg" class="d-block w-100 c-img" alt="...">
+            <div class="carousel-caption top-0 mt-4" style="margin-right: 15rem; text-align: left">
+                <p class="mt-5 fs-4 text-uppercase">@Localizer["Odkryj mobilność i wydajność już teraz"]</p>
+                <h1 class="display-1 fw-bolder text-capitalize">@Localizer["Twój nowy laptop czeka!"]</h1>
+            </div>
+        </div>
+        <div class="carousel-item c-item">
+            <img src="~/images/slider3.jpg" class="d-block w-100 c-img" alt="...">
+            <div class="carousel-caption top-0" style="margin-left: 15rem; text-align: right">
+                <p class="mt-5 fs-4 text-uppercase">@Localizer["Dostawa na nasz koszt"]</p>
+                <h1 class="display-1 fw-bolder text-capitalize">@Localizer["Zamów i ciesz się darmową wysyłką!"]</h1>
+            </div>
+        </div>
+    </div>
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#banner-reklamowy" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#banner-reklamowy" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+<div class="row">
+    <div class="col-md-12 divider"></div>
+</div>
+
+<div class="text-center">
+    <div class="container" id="product-cards-1">
+        <h1 class="text-center">@Localizer["Polecamy"]</h1>
+        <div class="row" style="margin-top: 30px;">
+            @{
+                var shuffledProducts1 = Model.ProductsWithSpecifications.OrderBy(p => Guid.NewGuid()).ToList();
+                var randomProducts1 = shuffledProducts1.Take(4);
+            }
+
+            @foreach (var product in randomProducts1)
+            {
+                <div class="col-md-3 py-3 py-md-0">
+                    <a href="/ProductDetails/@product.Id" class="text-decoration-none">
+                        <div class="card">
+                            <img src="@product.Image" alt="@product.Name" class="card-img-top">
+                            <div class="card-body">
+                                <h3 class="card-title">@product.Name</h3>
+                                <h5 class="card-text">@String.Format("{0:C}", product.Price) <span><i class="fa fa-shopping-cart fa-lg"></i></span></h5>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+            }
+        </div>
+    </div>
+    <a asp-page="/Products" id="viewmorebtn">Więcej</a>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-12 divider"></div>
+</div>
+<div class="text-center">
+    <div class="container" id="product-cards-2">
+        <h1 class="text-center">@Localizer["Bestsellery"]</h1>
+        <div class="row" style="margin-top: 30px;">
+            @{
+                var shuffledProducts2 = Model.ProductsWithSpecifications.OrderBy(p => Guid.NewGuid()).ToList();
+                var randomProducts2 = shuffledProducts2.Take(4);
+            }
+
+            @foreach (var product in randomProducts2)
+            {
+                <div class="col-md-3 py-3 py-md-0">
+                    <div class="card">
+                        <img src="@product.Image" alt="">
+                        <div class="card-body">
+                            <h3>@product.Name</h3>
+                            <h5>@String.Format("{0:C}", product.Price) <span><i class="fa fa-shopping-cart fa-lg"></i></span></h5>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <a asp-page="/Products" id="viewmorebtn">Więcej</a>
+</div>
+
+<br />
+<br />
+
+<div class="row">
+    <div class="col-md-12 divider"></div>
+</div>
+<div class="album contenti">
+    <div class="container">
+        <h1 class="text-center">@Localizer["Promocje"]</h1>
+        <div class="row">
+            @{
+                var shuffledProducts3 = Model.ProductsWithSpecifications.OrderBy(p => Guid.NewGuid()).ToList();
+                var randomProducts3 = shuffledProducts3.Take(4);
+            }
+            @foreach (var product in randomProducts3)
+            {
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="product-wrapper">
+                        @if (product.IsOnSale)
+                        {
+                            <img class="fa fa-money" />
+                        }
+                        <div class="item">
+                            <a href="@product.Url">
+                                <img src="@product.Image" alt="Thumbnail" style="width: 100%; display: block;" data-holder-render="true" />
+                            </a>
+                            <div class="description">
+                                <a href="@product.Url">@product.Name</a>
+                                <div class="price">
+                                    @if (product.IsOnSale)
+                                    {
+                                        <h4 class="currentPrice" style="float:left; margin-right: 10px;">PLN @product.SalePrice</h4>
+                                        <label class="oldPrice">PLN @product.Price</label>
+                                    }
+                                    else
+                                    {
+                                        <h4 class="currentPrice">PLN @product.Price</h4>
+                                    }
+                                </div>
+                            </div>
+                            <div class="action text-center">
+                                <a href="/ProductDetails/@product.Id" class="btn">Więcej</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 divider"></div>
+</div>

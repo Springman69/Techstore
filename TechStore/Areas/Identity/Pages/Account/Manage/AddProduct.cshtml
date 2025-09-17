@@ -1,0 +1,142 @@
+﻿@page
+@model TechStore.Areas.Identity.Pages.Account.Manage.AddProductModel
+
+<style>
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+    }
+</style>
+
+<h1>Dodaj nowy produkt</h1>
+
+<form method="post">
+
+    <div class="form-group">
+        <label for="Company">Producent:</label>
+        <input type="text" id="Company" name="Company" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="Name">Nazwa produktu:</label>
+        <input type="text" id="Name" name="Name" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label for="CategoryId">Kategoria:</label>
+        <select id="CategoryId" name="SelectedCategoryId" class="form-control" asp-items="@(new SelectList(Model.Categories, "Id", "Name"))">
+            <option value="">Wybierz kategorie...</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="Quantity">Ilość :</label>
+        <input type="number" id="Quantity" name="Quantity" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label for="Price">Cena:</label>
+        <input type="number" id="Price" name="Price" step="0.01" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label for="Image">Zdjęcie 1 URL:</label>
+        <input type="text" id="Image" name="Image" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="Picture2">Zdjęcie 2 URL:</label>
+        <input type="text" id="Picture2" name="Picture2" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="Picture3">Zdjęcie 3 URL:</label>
+        <input type="text" id="Picture3" name="Picture3" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="Picture6">Zdjęcie nagłówkowe 1 URL:</label>
+        <input type="text" id="Picture6" name="Picture6" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="Header1">Nagłówek 1:</label>
+        <textarea id="Header1" name="Header1" class="form-control" required></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="Description1">Opis 1:</label>
+        <textarea id="Description1" name="Description1" class="form-control" required></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="Picture7">Zdjęcie nagłówkowe 2 URL:</label>
+        <input type="text" id="Picture7" name="Picture7" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="Header2">Nagłówek 2:</label>
+        <textarea id="Header2" name="Header2" class="form-control" required></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="Description2">Opis 2:</label>
+        <textarea id="Description2" name="Description2" class="form-control" required></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="Picture8">Zdjęcie nagłówkowe 3 URL:</label>
+        <input type="text" id="Picture8" name="Picture8" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="Header3">Nagłówek 3 URL:</label>
+        <textarea id="Header3" name="Header3" class="form-control" required></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="Description3">Opis 3:</label>
+        <textarea id="Description3" name="Description3" class="form-control" required></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="Parametr1">Parametr1:</label>
+        <input type="text" id="Parametr1" name="Parametr1" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="Parametr2">Parametr2:</label>
+        <input type="text" id="Parametr2" name="Parametr2" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="Parametr3">Parametr3:</label>
+        <input type="text" id="Parametr3" name="Parametr3" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="Parametr4">Parametr4:</label>
+        <input type="text" id="Parametr4" name="Parametr4" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="Parametr5">Parametr5:</label>
+        <input type="text" id="Parametr5" name="Parametr5" class="form-control" />
+    </div>
+
+    <div class="form-group">
+    <label for="Parametr6">Parametr6:</label>
+    <input type="text" id="Parametr6" name="Parametr6" class="form-control" />
+    </div>
+
+    <div class="form-group">
+    <label for="Parametr7">Parametr7:</label>
+    <input type="text" id="Parametr7" name="Parametr7" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Dodaj produkt</button>
+    </div>
+</form>

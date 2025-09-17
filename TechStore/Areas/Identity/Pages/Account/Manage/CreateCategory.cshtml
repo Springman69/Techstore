@@ -1,0 +1,10 @@
+﻿@page
+@model TechStore.Areas.Identity.Pages.Account.Manage.ManageProductsModel
+
+
+<form method="post">
+    <label asp-for="Category.Name" class="form-label">Nazwa</label>
+    <input asp-for="Category.Name" class="form-control" aria-required="true"/>
+    <span asp-validation-for="Category.Name" class="text-danger"></span>
+    <button type="submit" class="w-100 btn btn-lg btn-outline-primary">Stwórz Kategorię</button>
+</form>

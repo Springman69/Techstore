@@ -1,0 +1,44 @@
+﻿@page
+@model TechStore.Areas.Identity.Pages.Account.Manage.ClientOrdersModel
+@{
+    <div class="container-fluid">
+        <h1>Twoje Zamówienia</h1>
+        @foreach (var o in Model.Orders)
+        {
+            <div class="row mb-2">
+                <div class="card mb-5 col-md-12">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card-body">
+                                <h5 class="card-title"><strong>@o.OrderStatus</strong></h5>
+                                <p>@o.OrderDate.Date.ToString("yyyy-MM-dd")</p>
+                                <p>nr @o.Id</p>
+                                <p><strong>@o.OrderValue zł</strong></p>
+                                <a href="./ClientOrderDetails?id=@o.Id" class="btn btn-primary">View Details</a>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="row">
+                                @foreach (var productOrderRelation in o.ProductOrderRelations)
+                                {
+                                    <div class="col-md-3 mb-3">
+                                        <div class="card mt-4">
+                                            @if (productOrderRelation.Product != null && !string.IsNullOrEmpty(productOrderRelation.Product.Image))
+                                            {
+                                                <img src="@productOrderRelation.Product.Image" class="card-img-top img-fluid" style="max-width: 100%; height: auto;" />
+                                            }
+                                            else
+                                            {
+                                                <p class="card-text">No image available</p>
+                                            }
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

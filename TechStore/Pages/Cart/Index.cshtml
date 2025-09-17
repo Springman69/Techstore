@@ -1,0 +1,99 @@
+﻿@page
+@model TechStore.Pages.Cart.IndexModel
+@{
+    ViewData["Title"] = "Złóż zamówienie";
+}
+
+<link rel="stylesheet" href="~/css/shipping.css" />
+
+<div class="container mt-5">
+
+    <div class="row mt-5">
+        <div class="col-md-8 mx-auto">
+            <div class="card shadow-lg border-primary">
+                <div class="card-body bg-light text-center">
+                    <a href="/cart/cart" class="btn btn-link mb-3">Wróć do koszyka</a>
+                    <p class="text-primary font-weight-bold">Dostawa: <span class="text-secondary">Za darmo</span></p>
+                    <hr />
+                    <p class="text-primary font-weight-bold">Do zapłaty: <span class="text-success">@Model.OrderValue ZŁ</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br />
+
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <form method="post">
+                <div class="form-group">
+                    <label asp-for="Address.Street" class="form-label">Nazwa ulicy:</label>
+                    <input asp-for="Address.Street" class="form-control" aria-required="true" />
+                    <span asp-validation-for="Address.Street" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Address.BuildingNumber" class="form-label">Numer budynku:</label>
+                    <input asp-for="Address.BuildingNumber" class="form-control" aria-required="true" />
+                    <span asp-validation-for="Address.BuildingNumber" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Address.ApartmentNumber" class="form-label">Numer mieszkania (opcjonalnie):</label>
+                    <input asp-for="Address.ApartmentNumber" class="form-control" aria-required="false" />
+                    <span asp-validation-for="Address.ApartmentNumber" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Address.PostalCode" class="form-label">Kod pocztowy:</label>
+                    <input asp-for="Address.PostalCode" class="form-control" aria-required="true" />
+                    <span asp-validation-for="Address.PostalCode" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Address.Locality" class="form-label">Miasto:</label>
+                    <input asp-for="Address.Locality" class="form-control" aria-required="true" />
+                    <span asp-validation-for="Address.Locality" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Client.FirstName" class="form-label">Imię:</label>
+                    <input asp-for="Client.FirstName" class="form-control" aria-required="true" />
+                    <span asp-validation-for="Client.FirstName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Client.LastName" class="form-label">Nazwisko:</label>
+                    <input asp-for="Client.LastName" class="form-control" aria-required="true" />
+                    <span asp-validation-for="Client.LastName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Client.PhoneNumber" class="form-label">Tel:</label>
+                    <input asp-for="Client.PhoneNumber" class="form-control" aria-required="true" />
+                    <span asp-validation-for="Client.PhoneNumber" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Client.Email" class="form-label">Email:</label>
+                    <input asp-for="Client.Email" class="form-control" aria-required="true" />
+                    <span asp-validation-for="Client.Email" class="text-danger"></span>
+                </div>
+
+                <button type="submit" asp-page-handler="Test" class="btn btn-primary btn-lg w-100 mt-3">Złóż zamówienie</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-md-8 mx-auto text-center">
+            <button type="button" id="addCommentButton" class="btn btn-secondary">Uwagi do zamówienia</button>
+
+            <div id="commentSection" class="mt-3" style="display: none;">
+                <textarea id="orderComment" name="orderComment" class="form-control" placeholder="Wpisz komentarz..." rows="4"></textarea>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/shipping.js"></script>

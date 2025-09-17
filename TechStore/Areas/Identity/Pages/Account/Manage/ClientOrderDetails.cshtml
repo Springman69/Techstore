@@ -1,0 +1,60 @@
+﻿@page 
+@model TechStore.Areas.Identity.Pages.Account.Manage.ClientOrderDetailsModel
+@{
+    
+    <div class="container-fluid">
+        <div class="card">
+            <div class="row">
+                <div class="col-lg-6 pt-2">
+                    <h4 class="mx-2">Dane Odpiorcy</h4>
+                    <div class="card m-2 p-2">
+                        <p><strong>@Model.Order.Client.FirstName @Model.Order.Client.LastName</strong></p>
+                        <p>tel. @Model.Order.Client.PhoneNumber</p>
+                        <p>e-mail: @Model.Order.Client.Email</p>
+                    </div>
+                </div>
+                <div class="col-lg-6 pt-2">
+                    <h4>Adres dostawy:</h4>
+                    <div class="card mx-2 p-2">
+                        <p><strong>@Model.Order.ShippingAddress.Locality</strong></p>
+                        <p>@Model.Order.ShippingAddress.Street @Model.Order.ShippingAddress.BuildingNumber</p>
+                        <p>@Model.Order.ShippingAddress.PostalCode @Model.Order.ShippingAddress.Locality</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m-2">
+                    <h4 class="mx-2">Zamówienie</h4>
+                    <table class="table table-bordered table-hover">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Zdjęcie</th>
+                                <th>Nazwa produktu</th>
+                                <th>Ilość</th>
+                                <th>Cena</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var pr in Model.Order.ProductOrderRelations)
+                            {
+                                <tr>
+                                    <td><img src="@pr.Product.Image" class="img-fluid" style="max-width: 100px; height: auto;" /></td>
+                                    <td>@pr.Product.Name</td>
+                                    <td>@pr.Quantity szt.</td>
+                                    <td>@pr.Product.Price zł</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col text-center mb-3">
+                    <form method="post" asp-page-handler="GenerateInvoice">
+                        <button class="btn btn-outline-info" type="submit">Pobierz fakturę</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+}

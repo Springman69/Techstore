@@ -1,0 +1,74 @@
+﻿@page
+@model TechStore.Pages.ProductsModel
+<div class="container productsFilters">
+	<div class="row">
+		<div class="col-md-3">
+			<div class="container-fluid productsBorder">
+				<div class="row mb-2">
+					<form method="post">
+						<div class="col-12">
+							<p><b>Marka</b></p>
+							<div class="container-fluid">
+								<div class="row">
+									@for (int i = 0; i < Model.Options.Count; i++)
+									{
+										<div class="col-2">
+											<input type="checkbox" name="Options" value="@Model.Options[i]" />
+										</div>
+										<div class="col-10">
+											<p>@Model.Options[i]</p>
+										</div>
+									}
+									<button class="btn btn-outline-info w-50" type="submit" asp-page-handler="FiltrName">Filtruj po nazwie</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="row">
+					<form method="post">
+						<div class="col-12">
+							<p>
+								<b>Filtruj po ocenach
+									@if (ViewData["SortDirection"] != null)
+										{
+											@ViewData["SortDirection"]
+										}
+								</b>
+							</p>
+							<div class="container-fluid">
+								<div class="row">
+									<button class="btn btn-outline-info w-50" type="submit" asp-page-handler="FiltrReview">Filtruj</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-9">
+			<div class="container-fluid" id="product-cards-3">
+				<div class="row">
+					@for (int i = 0; i < Model.ProductsWithSpecifications.Count(); i++)
+					{
+						<div class="col-md-3 py-3 py-md-0">
+							<a href="/ProductDetails/@Model.ProductsWithSpecifications[i].Id" >
+							<div class="card">
+
+								<img src="@Model.ProductsWithSpecifications[i].Image" alt="">
+								<div class="card-body">
+									<h3>@Model.ProductsWithSpecifications[i].Name</h3>
+									<h5>@Model.ProductsWithSpecifications[i].Price zł<span><i class="fa fa-shopping-cart fa-lg"></i></span></h5>
+								</div>
+							</div>
+							</a>
+						</div>
+					}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+

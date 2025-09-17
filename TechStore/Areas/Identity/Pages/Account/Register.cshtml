@@ -1,0 +1,70 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Załóż Konto";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 ">
+            <h1 class="text-center">@ViewData["Title"]</h1>
+            <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                <hr />
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="mb-3">
+                    <label asp-for="Input.FirstName" class="form-label">Imię</label>
+                    <input asp-for="Input.FirstName" class="form-control" />
+                    <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Input.LastName" class="form-label">Nazwisko</label>
+                    <input asp-for="Input.LastName" class="form-control" />
+                    <span asp-validation-for="Input.LastName" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="InputEmail" class="form-label">Email</label>
+                    <input asp-for="Input.Email" class="form-control" id="InputEmail" autocomplete="username" aria-required="true" />
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label for="InputPassword" class="form-label">Hasło</label>
+                    <input asp-for="Input.Password" class="form-control" id="InputPassword" autocomplete="new-password" aria-required="true" />
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label for="InputConfirmPassword" class="form-label">Potwierdz Hasło</label>
+                    <input asp-for="Input.ConfirmPassword" class="form-control" id="InputConfirmPassword" autocomplete="new-password" aria-required="true" />
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                </div>
+                
+                <button id="registerSubmit" type="submit" class="btn btn-outline-primary w-100">Załóż konto</button>
+            </form>
+        </div>
+        <div class="col-md-6 text-center mt-3">
+            <h2>Dlaczego warto mieć konto w TechStore</h2>
+            <div class="m-5">
+                <img src="~/images/Dostawa.png"/>
+                <h6 class="d-inline">Zamawiaj szybciej</h6>
+            </div>
+            <div class="m-5">
+                <img src="~/images/Lista.png" />
+                <h6 class="d-inline">Sprawdzaj poprzednie zamówienia</h6>
+            </div>
+            <div class="m-5">
+                <img src="~/images/Zamowienie.png" />
+                <h6 class="d-inline">Śledź status zamówienia</h6>
+            </div>
+            <div class="m-5">
+                <img src="~/images/Promocja.png" />
+                <h6 class="d-inline">Korzystaj z promocji i rabatów</h6>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

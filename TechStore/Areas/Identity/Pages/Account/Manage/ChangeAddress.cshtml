@@ -1,0 +1,35 @@
+﻿@page
+@model TechStore.Areas.Identity.Pages.Account.Manage.ChangeAddressModel
+
+
+@{
+    ViewData["Title"] = "Change Address";
+}
+
+<h1>Twój adres</h1>
+
+<form method="post">
+    <label asp-for="Address.Street" class="form-label">Nazwa ulicy:</label>
+    <input asp-for="Address.Street" class="form-control" aria-required="true" />
+    <span asp-validation-for="Address.Street" class="text-danger"></span>
+
+    <label asp-for="Address.BuildingNumber" class="form-label">Numer budynku:</label>
+    <input asp-for="Address.BuildingNumber" class="form-control" aria-required="true" />
+    <span asp-validation-for="Address.BuildingNumber" class="text-danger"></span>
+
+    <label asp-for="Address.ApartmentNumber" class="form-label">Numer mieszkania(opcjonalnie):</label>
+    <input asp-for="Address.ApartmentNumber" class="form-control" aria-required="false" />
+    <span asp-validation-for="Address.ApartmentNumber" class="text-danger"></span>
+
+    <label asp-for="Address.PostalCode" class="form-label">Kod pocztowy:</label>
+    <input asp-for="Address.PostalCode" class="form-control" aria-required="true" />
+    <span asp-validation-for="Address.PostalCode" class="text-danger"></span>
+
+    <label asp-for="Address.Locality" class="form-label">Miasto:</label>
+    <input asp-for="Address.Locality" class="form-control" aria-required="true" />
+    <span asp-validation-for="Address.Locality" class="text-danger"></span>
+
+
+
+    <button type="submit" class="mt-5 w-100 btn btn-lg btn-outline-primary">Zapisz adres</button>
+</form>
